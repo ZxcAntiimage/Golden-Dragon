@@ -1,0 +1,136 @@
+@import "tailwindcss";
+
+/* ============================================================
+   Золотой Дракон — Design System (Tailwind v4)
+   Palette: Ink black · Imperial gold · Dragon red · White
+   ============================================================ */
+@theme {
+  --color-ink: #0a0807;
+  --color-ink-800: #12100e;
+  --color-ink-700: #1b1815;
+  --color-ink-600: #262019;
+
+  --color-gold: #d4af37;
+  --color-gold-bright: #f5d67b;
+  --color-gold-deep: #a9812a;
+  --color-gold-soft: #e8c877;
+
+  --color-dragon: #c1121f;
+  --color-dragon-bright: #e0273a;
+  --color-dragon-deep: #7d0a12;
+
+  --color-paper: #f7f1e3;
+
+  --font-display: var(--font-display), "Playfair Display", serif;
+  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+
+  --shadow-gold: 0 10px 40px -12px rgba(212, 175, 55, 0.45);
+  --shadow-dragon: 0 10px 40px -12px rgba(193, 18, 31, 0.5);
+
+  --animate-marquee: marquee 30s linear infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-glow: glow 3s ease-in-out infinite;
+  --animate-shimmer: shimmer 3.5s linear infinite;
+  --animate-spin-slow: spin 26s linear infinite;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+@keyframes glow {
+  0%, 100% { opacity: 0.55; filter: blur(24px); }
+  50% { opacity: 1; filter: blur(30px); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes kenburns {
+  0% { transform: scale(1.05) translate(0, 0); }
+  50% { transform: scale(1.18) translate(-2%, -2%); }
+  100% { transform: scale(1.05) translate(0, 0); }
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+  * {
+    border-color: color-mix(in srgb, var(--color-gold) 12%, transparent);
+  }
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background-color: var(--color-ink);
+    color: #f5f3ee;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+  ::selection {
+    background: var(--color-gold);
+    color: var(--color-ink);
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer utilities {
+  .text-gold-gradient {
+    background: linear-gradient(120deg, var(--color-gold-deep), var(--color-gold-bright) 45%, var(--color-gold) 70%, var(--color-gold-bright));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .text-shimmer {
+    background: linear-gradient(100deg, var(--color-gold) 20%, #fff7dd 40%, var(--color-gold-bright) 55%, var(--color-gold) 70%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: var(--animate-shimmer);
+  }
+  .bg-noise {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  }
+  .border-gold-soft {
+    border-color: color-mix(in srgb, var(--color-gold) 30%, transparent);
+  }
+  .glass {
+    background: color-mix(in srgb, var(--color-ink-700) 65%, transparent);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+  }
+  .ken-burns {
+    animation: kenburns 24s ease-in-out infinite;
+  }
+  .hide-scrollbar::-webkit-scrollbar { display: none; }
+  .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--color-ink-800); }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(var(--color-gold-deep), var(--color-dragon-deep));
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--color-gold); }
